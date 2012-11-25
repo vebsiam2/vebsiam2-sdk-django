@@ -16,6 +16,7 @@ class VebsiamConfig(object):
     def __init__(self):
         self._session_dir = None
         self.app_configuration = json.load(file(getattr(settings,'VEBSIAM2_APP_CONFIGURATION','vebsiam2-app.json')))
+        self.app_data = json.load(file(getattr(settings,'VEBSIAM2_APP_DATA','vebsiam2-auth-data.json')))
         
     def set_session_dir(self, sdir):
         if(os.path.isdir(sdir)):
@@ -79,3 +80,5 @@ class Users(object):
     def get_user(self, user_key):
         u = vebsiam_user()
         u.authenticated = True
+        return u
+    
