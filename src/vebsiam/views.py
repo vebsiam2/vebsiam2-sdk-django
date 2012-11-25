@@ -6,7 +6,9 @@ from vebsiam import vebsiam_config
 
 
 def login(request):
-    auth_login(request, vebsiam_user())
+    u = vebsiam_user()
+    u.authenticated = True
+    auth_login(request, u)
     print 'Login is for '+vebsiam_config.app_configuration['name']
     return HttpResponseRedirect(request.REQUEST['next'])
 

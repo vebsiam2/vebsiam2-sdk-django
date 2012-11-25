@@ -77,5 +77,5 @@ class SessionStore(SessionBase):
 
 class Users(object):
     def get_user(self, user_key):
-        return vebsiam_user()
-
+        u = vebsiam_user()
+        u.authenticated = True
