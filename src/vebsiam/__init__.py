@@ -4,6 +4,7 @@ import os, tempfile
 from django.conf import settings
 from django.utils.encoding import force_unicode
 from vebsiam.model import vebsiam_user
+import json
 
 
 urlpatterns = patterns('',
@@ -14,6 +15,7 @@ urlpatterns = patterns('',
 class VebsiamConfig(object):
     def __init__(self):
         self._session_dir = None
+        self.app_configuration = json.load(file(getattr(settings,'VEBSIAM2_APP_CONFIGURATION','vebsiam2-app.json')))
         
     def set_session_dir(self, sdir):
         if(os.path.isdir(sdir)):
