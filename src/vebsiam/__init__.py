@@ -17,6 +17,7 @@ class VebsiamConfig(object):
         self._session_dir = None
         self.app_configuration = json.load(file(getattr(settings,'VEBSIAM2_APP_CONFIGURATION','vebsiam2-app.json')))
         self.app_data = json.load(file(getattr(settings,'VEBSIAM2_APP_DATA','vebsiam2-auth-data.json')))
+        self.server = getattr(settings,'IAMSERVER',None)
         
     def set_session_dir(self, sdir):
         if(os.path.isdir(sdir)):
@@ -82,3 +83,10 @@ class Users(object):
         u.authenticated = True
         return u
     
+    @classmethod
+    def validate_user(cls, username, password):
+        try:
+            user = vebsiam_config.app_data['users'][username]
+        except KeyError:
+            user = None
+        return user and user['password'] == password
